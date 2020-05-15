@@ -11,6 +11,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using PolicyRobot.Models;
+using PolicyRobot.Services;
+using Telegram.Bot.Types;
 
 namespace PolicyRobot
 {
@@ -28,11 +30,15 @@ namespace PolicyRobot
         {
 
             // requires using Microsoft.Extensions.Options
-            services.Configure<ConfigureModel>(
-                Configuration.GetSection(nameof(ConfigureModel)));
+            services.Configure<BotConfigureModel>(
+                Configuration.GetSection(nameof(BotConfigureModel)));
 
-            services.AddSingleton<IConfigureModel>(sp =>
-                sp.GetRequiredService<IOptions<ConfigureModel>>().Value);
+            services.AddSingleton<IBotConfigureModel>(sp =>
+                sp.GetRequiredService<IOptions<BotConfigureModel>>().Value);
+
+            //DI
+            services.AddSingleton<IBotService, BotService>();
+            services.AddScoped<IMessageService, MessageService>();
 
             services.AddControllers();
         }

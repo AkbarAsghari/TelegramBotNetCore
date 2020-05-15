@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 
 namespace PolicyRobot.Models
 {
-    public class ConfigureModel : IConfigureModel
+    public class BotConfigureModel : IBotConfigureModel
     {
         public string AccessToken { get; set; }
     }
 
-    public interface IConfigureModel
+    public interface IBotConfigureModel
     {
         public string AccessToken { get; set; }
     }
